@@ -15,3 +15,13 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+
+/*Route('/profile/{user_id}', function($user_id) {
+
+    $user = User::get($user_id);
+
+    return View::make('profile')
+        ->with('user', $user);
+
+});*/
