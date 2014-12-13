@@ -71,7 +71,7 @@ Hello! Welcome to SILO! We are glad you've here. This is a place where you can s
 
 @section('search')
 
-	{{ Form::open(array('url' => '/goals', 'method' => 'GET')) }}
+	{{ Form::open(array('url' => '/data', 'method' => 'GET')) }}
 
 		{{ Form::label('query','Search') }}
 

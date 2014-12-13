@@ -13,26 +13,46 @@
 //This Route is set to GET your homepage when visitors come to the website
 Route::get('/', function()
 {
-	return View::make('index');
+	return View::make('index')
+	->with('name', 'Sibo');
+});
 
-	/*return "Hello! We are glad you've here. This is a place where you can store and keep track of personal goals!
-	Once you're goals have been created, they act as a journal of all the things you've
-	deemed important enough to keep track of. Welcome to SILO!";
-*/
+Route::get('/signup', function()
+{
+	return View::make('signup');
 
 });
 
-//Display form for new goal
-Route::get('/index', function()
+Route::get('/login', function()
 {
-	return View::make('index');
+	return View::make('login');
 
 });
 
-Route::get('/goals/{query?}', function($query)
 
+//Determines search results format
+Route::get('/goals/{format?}', function($format = 'html')
 {
-	return View::make('goals');
+
+$books = File::get(app_path().'/database/books.json');
+
+//Convert to an array
+	$books = json_decode($books,true);
+
+if ($format == 'excel') {
+ 	return 'Excel Version';
+ } 
+
+ elseif (strtolower($format) == 'pdf') {
+ 	return 'PDF Version';
+ }
+
+ else {
+	return View::make('goals')
+		->with('name', 'Sibo')
+		->with('books', $books);
+
+	}
 });
 
 
@@ -66,22 +86,65 @@ Route::post('/edit', function($goal)
 });
 
 //Display form for edit a goal
-Route::get('/data', function()
+Route::get('/data{format?}', function($format = 'html')
 {
 
-	$books = File::get(app_path().'/database/books.json');
+	$query = Input::get('query');
+
+/*	if ($query == 'maya') {
+		return 'hello world';
+	}*/
+
+$books = File::get(app_path().'/database/books.json');
 
 //Convert to an array
 	$books = json_decode($books,true);
 
-	//returns file
-//return $books;
+if ($format == 'excel') {
+ 	return 'Excel Version';
+ } 
 
-	echo Pre::render($books);
+ elseif (strtolower($format) == 'pdf') {
+ 	return 'PDF Version';
+ }
+
+ else {
+	return View::make('goals')
+		->with('name', 'Sibo')
+		->with('books', $books)
+		->with('query', $query);
+
+	}
+
+/*$library = new Library();
+
+$library->setPath(app_path().'/database/books.json');
+$books = $library->getBooks();
+
+	//returns file
+	echo Pre::render($books);*/
+
+});
+
+Route::get('/profile', function()
+{
+	return View::make('profile');
 
 });
 
 
+Route::get('/get-environment',function() {
+
+    echo "Environment: ".App::environment();
+
+});
+
+Route::get('/trigger-error',function() {
+
+    # Class Foobar should not exist, so this should create an error
+    $foo = new Foobar;
+
+});
 
 /* Route::get('/bye', function()
 {

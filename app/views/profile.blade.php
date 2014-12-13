@@ -1,7 +1,7 @@
-@extends('master')
+@extends('amaster')
 
 @section('title')
-    Hello World
+    Hello World - From Profile
 @stop
 
 @section('head')
@@ -10,9 +10,9 @@
 
 @section('content')
     <h1>Welcome!</h1>
-    <h1>Hello {{ $name! }}</h1>
+    
 @stop
 
 @section('footer')
-    <script src="/js/hello-world.js"></script>
+    <script src="/js/hello-world.js"></script> THIS IS THE FOOTER
 @stop
