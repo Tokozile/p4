@@ -27,3 +27,7 @@ return array(
 			'username'  => 'root',
 			'password'  => 'WzJuRMXFkw',
 		),
+
+	),
+
+	);
