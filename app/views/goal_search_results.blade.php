@@ -1,10 +1,18 @@
-@extends('amaster')
+<!DOCTYPE html>
+<html>
+<head>
 
-@section('title')
-    Goal Search Results
-@stop
+	<title>Goals</title>
+	<meta charset='utf-8'>
 
-<section>
+	<link href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
+	<link rel='stylesheet' href='/css/silo.css' type='text/css'>
+
+
+
+</head>
+<body>
+
 		@if(Session::get('flash_message'))
 		<div class='flash-message'>{{ Session::get('flash_message') }}</div>
 	@endif
@@ -46,7 +54,8 @@
 	    <a href='/goal/add'>Edit</a>
 	@endif
 
-@stop
+</body>
+</html>
 
 
 
