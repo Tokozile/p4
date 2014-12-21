@@ -7,8 +7,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"paste/pre": "dev-master",
-		"barryvdh/laravel-debugbar": "1.8.*@dev",
-		"davejamesmiller/laravel-breadcrumbs": "dev-master"
+
 	},
 	"autoload": {
 		"classmap": [
