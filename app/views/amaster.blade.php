@@ -19,7 +19,12 @@
 		<div class='flash-message'>{{ Session::get('flash_message') }}</div>
 	@endif
 
+
+<a href="http://localhost">
 	<img src='/img/Silo_hive.png' alt='SILO logo'>
+</a>
+
+
 	@if(Auth::check())
 			<div class='user'>
 				<nav>

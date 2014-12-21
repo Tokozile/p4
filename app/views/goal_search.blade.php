@@ -19,10 +19,6 @@
 
 		{{ Form::text('query', 'Goal Name') }}
 
-		{{ Form::label('box','Description') }}
-
-		{{ Form:: text('query', 'Description') }} <br>
-
 		{{ Form::submit('Search') }}
 
 	{{ Form::close() }}

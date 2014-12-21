@@ -14,6 +14,7 @@ return array(
 	*/
 
 	'debug' => true,
+	'debug_bar' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -121,6 +122,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 
 		
 	),
@@ -190,7 +192,7 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Pre'				=> 'Paste\Pre',
-		
+		'Debugbar'	        => 'Barryvdh\Debugbar\Facade',
 
 
 	),

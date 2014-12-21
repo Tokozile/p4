@@ -4,25 +4,25 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f9e4eee105dd8da1ba80000f0cc8bc5",
+    "hash": "d38a81b1cd0426edd49a8a8387efd58b",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "dev-master",
+            "version": "v1.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "1015c5d23e01ae6025990dd501f8d921451e5927"
+                "reference": "410e98739c58ccd1b9ad2f49afd77a8d40144515"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/1015c5d23e01ae6025990dd501f8d921451e5927",
-                "reference": "1015c5d23e01ae6025990dd501f8d921451e5927",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/410e98739c58ccd1b9ad2f49afd77a8d40144515",
+                "reference": "410e98739c58ccd1b9ad2f49afd77a8d40144515",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "4.*|5.0.*",
-                "maximebf/debugbar": "~1.10.2",
+                "maximebf/debugbar": "~1.10.1",
                 "php": ">=5.3.0",
                 "symfony/finder": "~2.3"
             },
@@ -58,7 +58,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2014-12-17 10:44:03"
+            "time": "2014-12-04 12:14:32"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -140,54 +140,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "time": "2014-01-17 12:21:18"
-        },
-        {
-            "name": "davejamesmiller/laravel-breadcrumbs",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/davejamesmiller/laravel-breadcrumbs.git",
-                "reference": "4b9db9dabd5c2c14027d7219f3d9f8f8d75ca0e4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/davejamesmiller/laravel-breadcrumbs/zipball/4b9db9dabd5c2c14027d7219f3d9f8f8d75ca0e4",
-                "reference": "4b9db9dabd5c2c14027d7219f3d9f8f8d75ca0e4",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "4.*|5.*",
-                "illuminate/view": "4.*|5.*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9.0",
-                "phpunit/phpunit": "4.0.*",
-                "satooshi/php-coveralls": "~0.6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "DaveJamesMiller\\Breadcrumbs": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT License"
-            ],
-            "authors": [
-                {
-                    "name": "Dave James Miller",
-                    "email": "dave@davejamesmiller.com",
-                    "homepage": "http://davejamesmiller.com/"
-                }
-            ],
-            "description": "A simple Laravel-style way to create breadcrumbs in Laravel 4+.",
-            "homepage": "https://github.com/davejamesmiller/laravel-breadcrumbs",
-            "keywords": [
-                "laravel"
-            ],
-            "time": "2014-11-25 22:44:55"
         },
         {
             "name": "filp/whoops",
@@ -1898,9 +1850,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "paste/pre": 20,
-        "barryvdh/laravel-debugbar": 20,
-        "davejamesmiller/laravel-breadcrumbs": 20
+        "paste/pre": 20
     },
     "prefer-stable": false,
     "platform": [],

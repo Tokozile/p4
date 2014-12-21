@@ -1,9 +1,19 @@
+@extends('amaster')
+
+
+@section('title')
+    Edit Goal
+@stop
+
+
+   @section('content')
+
 <section>
 
 		@if(Session::get('flash_message'))
 		<div class='flash-message'>{{ Session::get('flash_message') }}</div>
 		@endif
-	<img src='/img/Silo_hive.png' alt='SILO logo'>
+
 		<link rel='stylesheet' href='/css/silo.css' type='text/css'>
 
 					<a href='/'>Home</a>
@@ -76,3 +86,5 @@
 @endif
 
 </section>
+
+@stop

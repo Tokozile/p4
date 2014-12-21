@@ -1,3 +1,15 @@
+
+@extends('amaster')
+
+@section('title')
+	Add Note
+@stop
+
+@section('head')
+
+@stop
+
+@section('content')
 <section>
 
 		@if(Session::get('flash_message'))
@@ -39,3 +51,4 @@
 	</div>
 
 </section>
+@stop

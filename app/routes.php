@@ -50,6 +50,12 @@ Route::get('/profile', function()
 
 });
 
+Route::get('/general', function()
+{
+    return View::make('general');
+
+});
+
 /**
 * Goal
 * (Explicit Routing)

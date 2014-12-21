@@ -31,74 +31,26 @@ class GoalController extends \BaseController {
 
 		            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
 
-		          
-		               #echo $goal->name.': ';
-		               #echo $goal->description.'<br>';
 		            }
 
+		            if ($goalOutput) {
+		            	
 		            return $goalOutput;
+		            }
+
+		            else {
+
+		          return Redirect::intended('/')->with('flash_message','Sorry, we did not find any goals for you but you can always create new goals. Good Luck!');
+		            }
+
 	}
 
-	public function getAdd() {
-
-        return View::make('goal_add');
-    }
-
-
-    /**
-    * Process the "Add a book form"
-    * @return Redirect
-    */
-
-
-	public function postAdd() {
-
-		# Step 1) Define the rules
-		$rules = array(
-			'name' => 'required',
-			'description' => 'required',
-			'users_id' => 'required'
-		);
-
-		# Step 2)
-		$validator = Validator::make(Input::all(), $rules);
-
-		# Step 3
-		if($validator->fails()) {
-
-			return Redirect::to('/goal_add')
-				->with('flash_message', 'There seems to have been a problem adding your goal. Please fix the errors listed below.')
-				->withInput()
-				->withErrors($validator);
-		}
-
-        #Instantiate the goal model
-        $goal = new Goal();
-        $goal->name = Input::get('name');
-        $goal->description = Input::get('description');
-        $goal->users_id = Input::get('users_id');
-
-        #Instantiate the note model
-
-       
-
-
-        try {
-            $goal->save();
-
-            return Redirect::to('/goal/add')->with('flash_message', 'Your Goal was successfully added!');
-        }
-        catch (Exception $e) {
-            return Redirect::to('/goal/add')
-                ->with('flash_message', 'There was a problem adding your goal; please try again.')
-                ->withInput();
-        }
-	}
-
+	
 
 	public function getSearch() {
 
 		return View::make('goal_search');
+
 
 	}
 
@@ -117,28 +69,31 @@ class GoalController extends \BaseController {
 
 		    #get all goals whose users_id matched the current user's id
 		   $goals = DB::table('goals')->where('users_id', '=', $currentUser)
-		   ->where('name', 'LIKE', $query)
-		   ->orWhere('description', 'LIKE', $query)
+		   ->where('name', 'LIKE', "%$query%")
+		   ->orWhere('description', 'LIKE', "%$query%")
 		   ->get();
 		   //return $test2;
 		   $goalOutput = '';
 		   #return the name and description of each goal for this user
 		   foreach ($goals as $goal) 
 		            {
-		            	if ($goal) {
 		            	
 		            		$goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
-		            	}
-
-		            	else{
-
-		            		return View::make('general')->with('flash_message', 'You do not have any goals created yet. Please Click on the link below to start creating goals!');
-
-		            	}
 
 		            }
 
-		            return $goalOutput; 
+		            if ($goalOutput)
+		            {
+		            	return $goalOutput; 
+
+		            }
+
+		            else {
+		            
+	   				return Redirect::intended('/goal/search')->with('flash_message','Sorry, no goals were found with that input. Please try again');
+
+		            }
+
 	}
 
 
@@ -162,10 +117,35 @@ class GoalController extends \BaseController {
 
 
 	/**
-	* Process the "Edit a book form"
+	* Process the "Edit a goal form"
 	* @return Redirect
 	*/
 	public function postEdit() {
+
+/*
+
+				# Step 1) Define the rules
+		$rules = array(
+			'name' => 'required_without_all',
+			'description' => 'required',
+			'users_id' => 'required|numeric',
+			'created_at' => 'required if|date',
+			'updated_at' => 'required if|date',
+			
+		);
+
+		# Step 2)
+		$validator = Validator::make(Input::all(), $rules);
+
+		# Step 3
+		if($validator->fails()) {
+
+			return Redirect::action('GoalController@getIndex')
+				->with('flash_message', 'There seems to have been a problem editing your goal. Please note that all fields are required.')
+				->withInput()
+				->withErrors($validator);
+		}*/
+
 
 		try {
 	        $goal = Goal::findOrFail(Input::get('id'));
@@ -184,6 +164,56 @@ class GoalController extends \BaseController {
 
 	}
 
+	public function getAdd() {
+
+        return View::make('goal_add');
+    }
+
+    /**
+    * 
+    * @return Redirect
+    */
+
+	public function postAdd() {
+
+		# Step 1) Define the rules
+		$rules = array(
+			'name' => 'required',
+			'description' => 'required',
+			'users_id' => 'required|numeric'
+		);
+
+		# Step 2)
+		$validator = Validator::make(Input::all(), $rules);
+
+		# Step 3
+		if($validator->fails()) {
+
+			return Redirect::to('/goal/add')
+				->with('flash_message', 'There seems to have been a problem adding your goal. Please note that all fields are required.')
+				->withInput()
+				->withErrors($validator);
+		}
+
+        #Instantiate the goal model
+        $goal = new Goal();
+        $goal->name = Input::get('name');
+        $goal->description = Input::get('description');
+        $goal->users_id = Input::get('users_id');
+
+        try {
+            $goal->save();
+
+            return Redirect::to('/goal/add')->with('flash_message', 'Your Goal was successfully added!');
+        }
+        catch (Exception $e) {
+            return Redirect::to('/goal/add')
+                ->with('flash_message', 'There was a problem adding your goal; please try again.')
+                ->withInput();
+        }
+	}
+
+
 		public function getComplete() {
 
 		   #get all goals whose users_id matched the current user's id*/
@@ -197,24 +227,24 @@ class GoalController extends \BaseController {
 					 	->get();
 					   $goalOutput = '';
 					   #return the name and description of each goal for this user
-					   foreach ($goals as $goal) 
-					            {
-					            	if ($goal) {
-					            	
-					            		$goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
-					            	
-					            	}
 
-					            	elseif (! $goal->isEmpty()) {
-					            			return View::make('general')->with('flash_message','You Have no completed goals')->render();
-					            		
-					            	}
-					            }
+	 					foreach ($goals as $goal) 
+			            {
 
-					            return $goalOutput;
+			            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
 
-	   		#return Redirect::action('GoalController@getIndex')->with('flash_message','The following Goals have NOT been Completed.');
-	   	}
+			            }
+
+			            if ($goalOutput) {
+			            	
+			            return $goalOutput;
+			            }
+
+			            else {
+
+			          return Redirect::intended('/')->with('flash_message','You have no completed goals yet but keep at it and Good Luck!');
+			            }
+		   	}
 
 
 		public function getIncomplete() {
@@ -228,16 +258,22 @@ class GoalController extends \BaseController {
 		 	->get();
 		   $goalOutput = '';
 		   #return the name and description of each goal for this user
-		   foreach ($goals as $goal) 
-		            {
+		   	 					foreach ($goals as $goal) 
+			            {
 
-		            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
+			            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
 
-		            }
+			            }
 
-		            return $goalOutput;
+			            if ($goalOutput) {
+			            	
+			            return $goalOutput;
+			            }
 
-	   		#return Redirect::action('GoalController@getIndex')->with('flash_message','The following Goals have been Completed.');
+			            else {
+
+			          return Redirect::intended('/')->with('flash_message','It appears we have no goals for you yet. Please create some.');
+			            }
 
 		}
 
@@ -272,7 +308,7 @@ class GoalController extends \BaseController {
 					        $goal->save();
 
 
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Your Goal has been complete.');
+	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Congratulations on completing your goal!');
 
 	}
 	
