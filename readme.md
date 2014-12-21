@@ -9,7 +9,7 @@ http://p4.harvard-cscie15.me/
 Project 4 is an application that allows you to create, view, update or delete goals that you might want to keep track of. 
 
 *********DEMO**********
-http://screencast.com/t/oF7VYSge
+http://screencast.com/t/UbwNv0ne
 
 Our demo sessions are on Saturday. I will be attending that session remotely but will record a demo for this project. 
 

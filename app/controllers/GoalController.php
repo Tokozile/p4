@@ -117,7 +117,8 @@ class GoalController extends \BaseController {
 
 		    #get all goals whose users_id matched the current user's id
 		   $goals = DB::table('goals')->where('users_id', '=', $currentUser)
-		   ->where('name', '=', $query)
+		   ->where('name', 'LIKE', $query)
+		   ->orWhere('description', 'LIKE', $query)
 		   ->get();
 		   //return $test2;
 		   $goalOutput = '';
