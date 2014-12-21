@@ -1,10 +1,10 @@
-
+@extends('amaster')
 
 @section('title')
     Goal Search Results
 @stop
 
-   @section('content')
+<section>
 		@if(Session::get('flash_message'))
 		<div class='flash-message'>{{ Session::get('flash_message') }}</div>
 	@endif
@@ -46,7 +46,7 @@
 	    <a href='/goal/add'>Edit</a>
 	@endif
 
-
+@stop
 
 
 
