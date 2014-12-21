@@ -59,6 +59,7 @@
 								<li><a href='/goal/incomplete'>Show Only Incomplete Goals</a></li>
 								<li><a href='/goal/complete'>Show Only Complete Goals</a></li>
 								<li><a href='/goal/add'>Add a new Goal</a></li>
+								<li><a href='/goal/showall'>SHOW EVERY ONES GOALS</a></li>
 							@endif
 						</ul>
 				</nav>
