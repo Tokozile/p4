@@ -56,6 +56,27 @@ Route::get('/general', function()
 
 });
 
+Route::get('/goal/showall', function()
+{
+    
+    $goals = DB::table('goals')
+           ->get();
+
+
+                        $goalOutput = '';
+                    #return the name and description of each goal for this user
+                    foreach ($goals as $goal) 
+                    {
+
+                            $goalOutput .= View::make('goal_edit')->with('goal', $goal)->render();
+                    }
+
+                    return $goalOutput; 
+
+});
+
+
+
 /**
 * Goal
 * (Explicit Routing)
