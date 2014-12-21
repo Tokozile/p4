@@ -122,7 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
+		
 	),
 
 	/*
@@ -190,8 +190,7 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Pre'				=> 'Paste\Pre',
-		'Breadcrumbs'       => 'DaveJamesMiller\Breadcrumbs\Facade',
-
+		
 
 
 	),
