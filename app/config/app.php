@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
+		'Barryvdh\Debugbar\ServiceProvider',
+		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
 	),
 
 	/*
@@ -189,6 +190,9 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Pre'				=> 'Paste\Pre',
+		'Breadcrumbs'       => 'DaveJamesMiller\Breadcrumbs\Facade',
+
+
 
 	),
 

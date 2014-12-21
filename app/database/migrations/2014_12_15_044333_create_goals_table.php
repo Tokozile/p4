@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTasksTable extends Migration {
+class CreateGoalsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,21 @@ class CreateTasksTable extends Migration {
 	 */
 	public function up()
 	{
-		//Creating Table
+	//Creating Table
 
-		Schema::create('tasks', function($table)
+		Schema::create('goals', function($table)
 
 		{
 
 			$table->increments('id');//sets primary key and allows it to auto increment
-			$table->string('name'); //equivalent to varchar
+
 			$table->timestamps(); //Adds created_at and updated_at columns
+
+			$table->string('name'); //equivalent to varchar
+
+			$table->mediumText('description'); //Add description for goals
+
+
 		});
 	}
 
@@ -33,7 +39,6 @@ class CreateTasksTable extends Migration {
 	{
 		//removes the table...you always have to have an down for an up
 
-		Schema::drop('tasks');
+		Schema::drop('goals');
 	}
-
 }

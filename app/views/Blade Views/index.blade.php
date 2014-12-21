@@ -1,7 +1,7 @@
 @extends('_master')
 
 @section('title')
-	SILO Home Page
+	SILO: Home 
 @stop
 
 @section('head')

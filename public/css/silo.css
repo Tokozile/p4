@@ -1,0 +1,115 @@
+
+		@import url(//fonts.googleapis.com/css?family=Lato:700);
+
+		body {
+			margin:0;
+			font-family:'Lato', sans-serif;
+			/*text-align:left;*/
+			color: black;
+			padding: 20px;
+		}
+
+		/*.welcome {
+			width: 300px;
+			height: 200px;
+			/*position: relative;*/
+			/*text-align:center;*/
+
+			/*padding: 10px;*/
+			/*left: 50%;
+			top: 50%;
+			margin-left: -150px;
+			margin-top: -100px;*/
+.user nav ul li a{
+
+	float: right;
+	position: relative;
+	color: #f47321;
+}
+
+.non-user nav ul li a{
+/*
+	float: right;
+	position: relative;*/
+	color: #13cddb;
+}	
+
+.github nav ul li a{
+
+	color: #F67A0F;
+}		
+
+nav ul {
+	list-style-type:none;
+	padding:5px 0px 5px 0px;
+}
+
+nav ul li {
+		list-style-type:none;
+	display:inline;
+	margin-right:10px;
+}
+
+		a, a:link, a:visited, a:active, a:hover {
+	text-decoration:underline;
+				color:#272727;
+}
+
+		h1 {
+			font-size: 32px;
+			margin: 16px 0 0 0;
+		}
+
+
+.textbox{
+
+	padding: 10px;
+	/*border:2px solid #456879;
+	border-radius:10px;
+	height: 22px;
+	width: 230px;*/
+}
+
+.grey{
+
+	color: #b6b8b7;
+	padding-top:20px;
+	
+
+}
+
+.orange{
+
+	color:#f47321;
+	padding-top:20px;
+/*font-weight: bold;*/
+}
+
+{border:1px solid #ccc;
+	padding:10px;
+	padding-top:20px;
+	float:left;
+	width:300px;
+	margin-right:10px;
+	margin-bottom:10px;
+	height:375px;
+}
+
+.flash-message {
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	background-color:#f2d320;
+	opacity: 0.6;
+
+	background-image: url("img/Yellow-Wallpaper.jpg");
+	text-align:center;
+	padding:5px;
+}
+
+label,input {
+	display:block;
+	margin-top:10px;
+
+

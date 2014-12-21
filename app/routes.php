@@ -9,235 +9,104 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the Closure to execute when that URI is requested.
 |
+/**
+* User
+* (Explicit Routing)
 */
-//This Route is set to GET your homepage when visitors come to the website
+Route::get('/signup','UserController@getSignup' );
+Route::post('/signup', 'UserController@postSignup' );
+
+Route::get('/login', 'UserController@getLogin' );
+Route::post('/login', 'UserController@postLogin' );
+
+Route::get('/logout', 'UserController@getLogout' );
+
+/**
+* User
+* (Explicit Routing)
+*/
+
+Route::get('/note/add{id}', 'NoteController@getAdd');
+Route::post('/note/add', 'NoteController@postAdd');
+
+Route::get('/note/edit', 'NoteController@getEdit');
+Route::post('/note/edit', 'NoteController@postEdit');
+/**
+* Debug
+* (Implicit Routing)
+*/
+Route::controller('debug', 'DebugController');
+
 Route::get('/', function()
 {
-	return View::make('index')
-	->with('name', 'Sibo');
-});
-
-Route::get('/signup', function()
-{
-	return View::make('signup');
+    return View::make('index');
 
 });
 
-Route::get('/login', function()
-{
-	return View::make('login');
-
-});
-
-
-//Determines search results format
-Route::get('/goals/{format?}', function($format = 'html')
-{
-
-$books = File::get(app_path().'/database/books.json');
-
-//Convert to an array
-	$books = json_decode($books,true);
-
-if ($format == 'excel') {
- 	return 'Excel Version';
- } 
-
- elseif (strtolower($format) == 'pdf') {
- 	return 'PDF Version';
- }
-
- else {
-	return View::make('goals')
-		->with('name', 'Sibo')
-		->with('books', $books);
-
-	}
-});
-
-
-//Display form for new goal
-Route::get('/add', function()
-{
-
-
-});
-
-//Process form for new goal
-Route::post('/add', function()
-{
-
-
-});
-
-
-//Display form for edit a goal
-Route::get('/edit/{goal}', function($goal)
-{
-
-
-});
-
-//Process form after editing goal
-Route::post('/edit', function($goal)
-{
-
-
-});
-
-//Display form for edit a goal
-Route::get('/data{format?}', function($format = 'html')
-{
-
-	$query = Input::get('query');
-
-/*	if ($query == 'maya') {
-		return 'hello world';
-	}*/
-
-$books = File::get(app_path().'/database/books.json');
-
-//Convert to an array
-	$books = json_decode($books,true);
-
-if ($format == 'excel') {
- 	return 'Excel Version';
- } 
-
- elseif (strtolower($format) == 'pdf') {
- 	return 'PDF Version';
- }
-
- else {
-	return View::make('goals')
-		->with('name', 'Sibo')
-		->with('books', $books)
-		->with('query', $query);
-
-	}
-
-/*$library = new Library();
-
-$library->setPath(app_path().'/database/books.json');
-$books = $library->getBooks();
-
-	//returns file
-	echo Pre::render($books);*/
-
-});
 
 Route::get('/profile', function()
 {
-	return View::make('profile');
+    return View::make('profile');
 
 });
 
+Route::get('/notes', function($id) {
 
-Route::get('/get-environment',function() {
+               /* #get all goals whose users_id matched the current user's id*/
+           $goals = DB::table('goals')->where('id', '=', $id)
+           ->get();
+                        
+                        $goalOutput = '';
+                    #return the name and description of each goal for this user
+                    foreach ($goals as $goal) 
+                    {
 
-    echo "Environment: ".App::environment();
+                            $goalOutput .= View::make('goal_edit')->with('goal', $goal)->render();
+                    }
 
-});
-
-Route::get('/trigger-error',function() {
-
-    # Class Foobar should not exist, so this should create an error
-    $foo = new Foobar;
-
-});
-
-Route::get('mysql-test', function() {
-
-    # Print environment
-    echo 'Environment: '.App::environment().'<br>';
-
-    # Use the DB component to select all the databases
-    $results = DB::select('SHOW DATABASES;');
-
-    # If the "Pre" package is not installed, you should output using print_r instead
-    echo Pre::render($results);
+                    return $goalOutput; 
 
 });
 
-/* Route::get('/bye', function()
-{
-	//return View::make('hello');
-
-	return "Bye world";
-});
-
-Route::get('/books', function()
-{
-return "Here are all the books...";
-
-});
-
-Route::get('/books/{category}', function($category)
-
+Route::post('/notes', function()
 {
 
-	return "Here are the books in the Category: ".$category;
-});
+    $note = DB::table('notes')->insert(array('notes' => Input::get('note'), 'goal_id' => Input::get('id')));
 
-Route::get('/new', function() {
+        #Add note values and save
+/*      $note = new Note();
+        $note->note = Input::get('note');
+        $note->goal_id = Input::get('id');*/
 
-    $view  = '<form method="POST">';
-    $view .= 'Title: <input type="text" name="title">';
-    $view .= '<input type="submit">';
-    $view .= '</form>';
-    return $view;
+        $note->save();
 
-});
 
-Route::post('/new', function() {
 
-    $input =  Input::all();
-    print_r($input);
 
-});*/
+    });
+/**
+* Goal
+* (Explicit Routing)
+*/
+Route::get('/goal', 'GoalController@getIndex');
 
-# /app/routes.php
-Route::get('/debug', function() {
+Route::get('/goal/search', 'GoalController@getSearch');
+Route::post('/goal/search', 'GoalController@postSearch');
 
-    echo '<pre>';
+Route::get('/goal/complete', 'GoalController@getComplete');
+Route::post('/goal/complete', 'GoalController@postComplete');
 
-    echo '<h1>environment.php</h1>';
-    $path   = base_path().'/environment.php';
+Route::get('/goal/incomplete', 'GoalController@getIncomplete');
 
-    try {
-        $contents = 'Contents: '.File::getRequire($path);
-        $exists = 'Yes';
-    }
-    catch (Exception $e) {
-        $exists = 'No. Defaulting to `production`';
-        $contents = '';
-    }
+Route::get('/goal/edit/{id}', 'GoalController@getEdit');
+Route::post('/goal/edit', 'GoalController@postEdit');
 
-    echo "Checking for: ".$path.'<br>';
-    echo 'Exists: '.$exists.'<br>';
-    echo $contents;
-    echo '<br>';
+Route::get('/goal/add', 'GoalController@getAdd');
+Route::post('/goal/add', 'GoalController@postAdd');
 
-    echo '<h1>Environment</h1>';
-    echo App::environment().'</h1>';
+Route::post('/goal/delete', 'GoalController@postDelete');
 
-    echo '<h1>Debugging?</h1>';
-    if(Config::get('app.debug')) echo "Yes"; else echo "No";
+Route::post('/goal/sendEmail', 'GoalController@postGoalEmail');
 
-    echo '<h1>Database Config</h1>';
-    print_r(Config::get('database.connections.mysql'));
 
-    echo '<h1>Test Database Connection</h1>';
-    try {
-        $results = DB::select('SHOW DATABASES;');
-        echo '<strong style="background-color:green; padding:5px;">Connection confirmed</strong>';
-        echo "<br><br>Your Databases:<br><br>";
-        print_r($results);
-    } 
-    catch (Exception $e) {
-        echo '<strong style="background-color:crimson; padding:5px;">Caught exception: ', $e->getMessage(), "</strong>\n";
-    }
 
-    echo '</pre>';
-
-});

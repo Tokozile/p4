@@ -2,27 +2,74 @@
 <html>
 <head>
 
-    <title>@yield('title', 'My Web Site')</title>
+	<title>@yield('title','SILO')</title>
+	<meta charset='utf-8'>
 
-    <meta charset='utf-8'>
-    <link rel='stylesheet' href='{{ asset('css/foobar.css') }}'>
+	<link href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
+	<link rel='stylesheet' href='/css/silo.css' type='text/css'>
 
-    @yield('head')
+	@yield('head')
+
 
 </head>
 <body>
+
+
+	@if(Session::get('flash_message'))
+		<div class='flash-message'>{{ Session::get('flash_message') }}</div>
+	@endif
+
 	<img src='/img/Silo_hive.png' alt='SILO logo'>
+	@if(Auth::check())
+			<div class='user'>
+				<nav>
+					<ul>
+						<li><a href='/logout'>Log out   {{{ Auth::user()->first_name}}} ({{ Auth::user()->email; }})</a></li>
+
+				<nav>
+					<ul>
+			</div>
+
+		@else
+			<div class='non-user'>
+
+					<nav>
+						<ul>
+							<li><a href='/signup'>Sign up</a> or <a href='/login'>Log in</a></li>
+			</div>
+	@endif
+						</ul>
+					</nav>
+		
+		
+				<nav>
+						<ul>
 
 
-    @yield('content')
+							@if(Auth::check())
+								
 
-    @yield('search')
+								<li><a href='/goal'>Show all your Goals and Notes</a></li>
+								<li><a href='/goal/search'>Search for Goal</a></li>
+								<li><a href='/goal/incomplete'>Show Only Incomplete Goals</a></li>
+								<li><a href='/goal/complete'>Show Only Complete Goals</a></li>
+								<li><a href='/goal/add'>Add a new Goal</a></li>
+							@endif
+						</ul>
+				</nav>
 
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' type='text/javascript'></script>
+	<a href='https://github.com/tokozile/p4'>Find on Github</a>
 
+	@yield('content')
 
-    @yield('footer')
- 
+	@yield('search')
+
+	@yield('/body')
 
 </body>
 </html>
+
+
+
+
+

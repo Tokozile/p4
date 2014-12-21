@@ -1,27 +1,25 @@
-## Laravel PHP Framework
+CSCI-E15 - PROJECT 4 - Creating Goals
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+*********LIVE URL***********
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+http://p4.harvard-cscie15.me/
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+*********DESCRIPTION********
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Project 4 is an application that allows you to create, view, update or delete goals that you might want to keep track of. 
 
-## Official Documentation
+*********DEMO**********
+http://screencast.com/t/oF7VYSge
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+Our demo sessions are on Saturday. I will be attending that session remotely but will record a demo for this project. 
 
-### Contributing To Laravel
+The jing demo url is below: 
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
 
-### License
+*******DETAILS FOR TEACHING TEAM********
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+N/A
 
-editing this so I can update github.
+******OUTSIDE CODE********
+
+Other than googling the occasional command, nothing. Just our class notes, professions notes and some of her code from foo-books, laravel docs, blade docs, php docs and a couple of packages

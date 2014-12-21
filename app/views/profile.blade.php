@@ -1,18 +1,16 @@
 @extends('amaster')
 
 @section('title')
-    Hello World - From Profile
+    {{ Auth::user()->email; }} is page
 @stop
 
 @section('head')
-    <link rel='stylesheet' href='/css/hello-world.css' type='text/css'>
+
 @stop
 
 @section('content')
-    <h1>Welcome!</h1>
-    
-@stop
+    <h3>Hello {{{ Auth::user()->first_name}}}!  ({{ Auth::user()->email; }})</h3>
 
-@section('footer')
-    <script src="/js/hello-world.js"></script> THIS IS THE FOOTER
+    <p>You can make changes to any exisiting goals that you created, search for a specific goal, list all your goals and/or review your notes. </p>
+
 @stop
