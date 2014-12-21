@@ -6,6 +6,16 @@ class NoteController extends \BaseController {
 	*
 	*/
 
+		public function __construct() {
+
+		# Make sure BaseController construct gets called
+		parent::__construct();
+
+		$this->beforeFilter('auth', array('except' => ['getIndex']));
+
+	}
+
+
 	public function getAdd($id) {
 
 		            		return View::make('notes_add');
@@ -39,14 +49,6 @@ class NoteController extends \BaseController {
 
 
 
-	public function __construct() {
-
-		# Make sure BaseController construct gets called
-		parent::__construct();
-
-		$this->beforeFilter('auth', array('except' => ['getIndex']));
-
-	}
 
 
 	public function getIndex() {

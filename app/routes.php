@@ -50,40 +50,6 @@ Route::get('/profile', function()
 
 });
 
-Route::get('/notes', function($id) {
-
-               /* #get all goals whose users_id matched the current user's id*/
-           $goals = DB::table('goals')->where('id', '=', $id)
-           ->get();
-                        
-                        $goalOutput = '';
-                    #return the name and description of each goal for this user
-                    foreach ($goals as $goal) 
-                    {
-
-                            $goalOutput .= View::make('goal_edit')->with('goal', $goal)->render();
-                    }
-
-                    return $goalOutput; 
-
-});
-
-Route::post('/notes', function()
-{
-
-    $note = DB::table('notes')->insert(array('notes' => Input::get('note'), 'goal_id' => Input::get('id')));
-
-        #Add note values and save
-/*      $note = new Note();
-        $note->note = Input::get('note');
-        $note->goal_id = Input::get('id');*/
-
-        $note->save();
-
-
-
-
-    });
 /**
 * Goal
 * (Explicit Routing)
