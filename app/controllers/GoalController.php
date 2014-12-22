@@ -201,7 +201,7 @@ class GoalController extends \BaseController {
 		public function getComplete() {
 
 		   #get all goals whose users_id matched the current user's id*/
-									 #find current user id
+			#find current user id
 					    $currentUser = Auth::id();
 
 					    #get all goals whose users_id matched the current user's id
@@ -220,7 +220,7 @@ class GoalController extends \BaseController {
 
 			            if ($goalOutput) {
 			            	
-			            return $goalOutput;
+			            echo $goalOutput;
 			            }
 
 			            else {
@@ -268,7 +268,7 @@ class GoalController extends \BaseController {
 
 			            if ($goalOutput) {
 			            	
-			            return $goalOutput;
+			            echo $goalOutput;
 			            }
 
 			            else {
