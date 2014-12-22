@@ -10,10 +10,8 @@ class GoalController extends \BaseController {
 		# Make sure BaseController construct gets called
 		parent::__construct();
 
-		$this->beforeFilter('auth', array('except' => ['getIndex']));
-
+		#$this->beforeFilter('auth', array('except' => ['getIndex']));
 	}
-
 
 	public function getIndex() {
 
@@ -25,44 +23,33 @@ class GoalController extends \BaseController {
 		   $goals = DB::table('goals')->where('users_id', '=', $currentUser)->get();
 		   //return $test2;
 		   $goalOutput = '';
-		   #return the name and description of each goal for this user
+		   #return the name and description of each goal for this user  #THIS WORKS
 		   foreach ($goals as $goal) 
 		            {
 
-		            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
+		            	$goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
 
 		            }
 
-		            if ($goalOutput) {
+		            if ($goalOutput ) {
 		            	
-		            return $goalOutput;
+		            	return $goalOutput;
 		            }
 
 		            else {
 
-		          return Redirect::intended('/')->with('flash_message','Sorry, we did not find any goals for you but you can always create new goals. Good Luck!');
+		          		return Redirect::intended('/')->with('flash_message','Sorry, we did not find any goals for you but you can always create new goals. Good Luck!');
 		            }
-
-	}
-
-	
+	}	    
 
 	public function getSearch() {
 
 		return View::make('goal_search');
-
-
 	}
-
-
-
 
 	public function postSearch() {
 
-		
-
 			$query  = Input::get('query');
-
 
 			 #find current user id
 		    $currentUser = Auth::id();
@@ -77,7 +64,7 @@ class GoalController extends \BaseController {
 		   #return the name and description of each goal for this user
 		   foreach ($goals as $goal) 
 		            {
-		            	
+		 		            	
 		            		$goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
 
 		            }
@@ -93,9 +80,7 @@ class GoalController extends \BaseController {
 	   				return Redirect::intended('/goal/search')->with('flash_message','Sorry, no goals were found with that input. Please try again');
 
 		            }
-
 	}
-
 
 	public function getEdit($id) {
 
@@ -114,7 +99,6 @@ class GoalController extends \BaseController {
 
 		            return $goalOutput; 
 	}
-
 
 	/**
 	* Process the "Edit a goal form"
@@ -217,7 +201,6 @@ class GoalController extends \BaseController {
 		public function getComplete() {
 
 		   #get all goals whose users_id matched the current user's id*/
-
 									 #find current user id
 					    $currentUser = Auth::id();
 
@@ -245,7 +228,6 @@ class GoalController extends \BaseController {
 			          return Redirect::intended('/')->with('flash_message','You have no completed goals yet but keep at it and Good Luck!');
 			            }
 		   	}
-
 
 		public function getIncomplete() {
 

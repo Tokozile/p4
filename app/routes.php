@@ -75,7 +75,34 @@ Route::get('/goal/showall', function()
 
 });
 
+Route::get('/goal/showmine', function()
+{
+    
+#return Redirect::action('GoalController@getIndex')->with('flash_message','Your changes have been saved.');
 
+    $goals = DB::table('goals')
+           ->get();
+
+
+                        $goalOutput = '';
+                    #return the name and description of each goal for this user
+                    foreach ($goals as $goal) 
+                    {
+                            #$goalOutput .= View::make('goal_edit')->with('goal', $goal)->render();
+
+                        return Redirect::action('GoalController@postComplete, GoalController@getIncomplete')->with('flash_message','Your goals...');
+                        return Redirect::action('GoalController@getIncomplete')->with('flash_message','Your goals...');
+
+
+                    }
+
+                    return $goalOutput; 
+
+                    #return Redirect::action('GoalController@getIncomplete', 'GoalController@postComplete')->with('flash_message','Your goals...');
+
+});
+
+#return Redirect::action('GoalController@getIndex')->with('flash_message','Your changes have been saved.');
 
 /**
 * Goal
