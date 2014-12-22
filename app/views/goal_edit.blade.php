@@ -42,9 +42,6 @@
 
 		{{ Form::close() }}
 
-
-		@if ($goal->goal_completed === 0)
-
 			{{ Form::hidden('id',$goal->id) }}
 
 		{{---- COMPLETE -----}}
@@ -59,9 +56,6 @@
 			<button onClick='parentNode.submit();return false;'>Delete goal</button>
 		{{ Form::close() }}
 
-		@endif
-
-		@if ($goal->goal_completed === 1)
 
 		{{---- DELETE -----}}
 		{{ Form::open(array('url' => '/goal/delete')) }}
@@ -69,7 +63,6 @@
 			<button onClick='parentNode.submit();return false;'>Delete goal</button>
 		{{ Form::close() }}
 
-		@endif
 
 </body>
 </html>
