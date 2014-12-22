@@ -27,7 +27,7 @@ class GoalController extends \BaseController {
 		   foreach ($goals as $goal) 
 		            {
 
-		            	$goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
+		            	$goalOutput .= View::make('search_results')->with('goal', $goal)->render();
 
 		            }
 
@@ -65,7 +65,7 @@ class GoalController extends \BaseController {
 		   foreach ($goals as $goal) 
 		            {
 		 		            	
-		            		$goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
+		            		$goalOutput .= View::make('search_results')->with('goal', $goal)->render();
 
 		            }
 
@@ -214,7 +214,7 @@ class GoalController extends \BaseController {
 	 					foreach ($goals as $goal) 
 			            {
 
-			            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
+			            $goalOutput .= View::make('search_results')->with('goal', $goal)->render();
 
 			            }
 
@@ -227,7 +227,26 @@ class GoalController extends \BaseController {
 
 			          return Redirect::intended('/')->with('flash_message','You have no completed goals yet but keep at it and Good Luck!');
 			            }
-		   	}
+		}
+
+		public function postComplete() {
+
+		try {
+	        $goal = Goal::findOrFail(Input::get('id'));
+	    }
+	    catch(exception $e) {
+	   	return Redirect::action('GoalController@getIndex')->with('flash_message','This Goal could not be completed');
+	    }
+
+	     $goal->goal_completed = '1';
+
+					        # Save the changes
+					        $goal->save();
+
+
+	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Congratulations on completing your goal!');
+
+	}
 
 		public function getIncomplete() {
 
@@ -243,7 +262,7 @@ class GoalController extends \BaseController {
 		   	 					foreach ($goals as $goal) 
 			            {
 
-			            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
+			            $goalOutput .= View::make('search_results')->with('goal', $goal)->render();
 
 			            }
 
@@ -271,26 +290,6 @@ class GoalController extends \BaseController {
 	    Goal::destroy(Input::get('id'));
 
 	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Your Goal has been deleted.');
-
-	}
-
-
-	public function postComplete() {
-
-		try {
-	        $goal = Goal::findOrFail(Input::get('id'));
-	    }
-	    catch(exception $e) {
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','This Goal could not be completed');
-	    }
-
-	     $goal->goal_completed = '1';
-
-					        # Save the changes
-					        $goal->save();
-
-
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Congratulations on completing your goal!');
 
 	}
 	
