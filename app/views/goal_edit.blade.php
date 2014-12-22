@@ -57,12 +57,5 @@
 		{{ Form::close() }}
 
 
-		{{---- DELETE -----}}
-		{{ Form::open(array('url' => '/goal/delete')) }}
-			{{ Form::hidden('id',$goal->id) }}
-			<button onClick='parentNode.submit();return false;'>Delete goal</button>
-		{{ Form::close() }}
-
-
 </body>
 </html>
