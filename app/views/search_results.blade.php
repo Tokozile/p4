@@ -24,6 +24,10 @@
     <p>Date Created: 
     	{{ Form::label('created_at',$goal->created_at) }}</p>
 
+	
+	</p>
+			<a href='/goal/edit/{{ $goal->id }}'>Edit</a> <br><br> 
+						<a href='/'>Return To Homepage</a>
 
 </body>
 </html>
