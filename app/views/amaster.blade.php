@@ -20,7 +20,7 @@
 	@endif
 
 
-<a href="http://p4.harvard-cscie15.me/">
+<a href='/'>
 	<img src='/img/Silo_hive.png' alt='SILO logo'>
 </a>
 
