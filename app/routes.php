@@ -90,13 +90,11 @@ Route::get('/goal/showmine', function()
                     {
                             #$goalOutput .= View::make('goal_edit')->with('goal', $goal)->render();
 
-                        return Redirect::action('GoalController@postComplete, GoalController@getIncomplete')->with('flash_message','Your goals...');
-                        return Redirect::action('GoalController@getIncomplete')->with('flash_message','Your goals...');
-
+                            echo $goal->goal_completed;
 
                     }
 
-                    return $goalOutput; 
+                    #return $goalOutput; 
 
                     #return Redirect::action('GoalController@getIncomplete', 'GoalController@postComplete')->with('flash_message','Your goals...');
 
