@@ -10,7 +10,7 @@ class GoalController extends \BaseController {
 		# Make sure BaseController construct gets called
 		parent::__construct();
 
-		#$this->beforeFilter('auth', array('except' => ['getIndex']));
+		$this->beforeFilter('auth', array('except' => ['getIndex']));
 	}
 
 	public function getIndex() {
