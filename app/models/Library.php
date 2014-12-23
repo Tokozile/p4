@@ -28,7 +28,7 @@ class Library {
 		}
 
 		return $results;
-
+	}
 
 
 }
