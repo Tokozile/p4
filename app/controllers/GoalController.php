@@ -106,47 +106,46 @@ class GoalController extends \BaseController {
 	*/
 	public function postEdit() {
 
-/*
+		// Fetch all request data.
+    	$data = Input::all();
 
-				# Step 1) Define the rules
-		$rules = array(
-			'name' => 'required_without_all',
+    	// Build the validation constraint set.
+    	$rules = array(
+  			'name' => 'required',
 			'description' => 'required',
-			'users_id' => 'required|numeric',
-			'created_at' => 'required if|date',
-			'updated_at' => 'required if|date',
-			
-		);
+    	);
 
-		# Step 2)
-		$validator = Validator::make(Input::all(), $rules);
+    	// Create a new validator instance.
+    	$validator = Validator::make($data, $rules);
 
-		# Step 3
-		if($validator->fails()) {
+    	if($validator->fails()) {
 
 			return Redirect::action('GoalController@getIndex')
 				->with('flash_message', 'There seems to have been a problem editing your goal. Please note that all fields are required.')
 				->withInput()
 				->withErrors($validator);
-		}*/
+		}
 
+    	if ($validator->passes()) {
 
-		try {
-	        $goal = Goal::findOrFail(Input::get('id'));
-	    }
-	    catch(exception $e) {
-	        return Redirect::to('/profile')->with('flash_message', 'Goal not found');
-	    }
+    	}
 
-	    # http://laravel.com/docs/4.2/eloquent#mass-assignment
-	    #add goal values and save
-	    $goal->fill(Input::all());
-	    $goal->save();
+			try {
+		        $goal = Goal::findOrFail(Input::get('id'));
+		    }
+		    catch(exception $e) {
+		        return Redirect::to('/profile')->with('flash_message', 'Goal not found');
+		    }
 
-	    
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Your changes have been saved.');
+		    # http://laravel.com/docs/4.2/eloquent#mass-assignment
+		    #add goal values and save
+		    $goal->fill(Input::all());
+		    $goal->save();
 
-	}
+		    
+		   	return Redirect::action('GoalController@getIndex')->with('flash_message','Your changes have been saved.');
+	   }
+	
 
 	public function getAdd() {
 
@@ -160,6 +159,7 @@ class GoalController extends \BaseController {
 
 	public function postAdd() {
 
+		$data = Input::all();
 		# Step 1) Define the rules
 		$rules = array(
 			'name' => 'required',
@@ -168,7 +168,7 @@ class GoalController extends \BaseController {
 		);
 
 		# Step 2)
-		$validator = Validator::make(Input::all(), $rules);
+		$validator = Validator::make($data, $rules);
 
 		# Step 3
 		if($validator->fails()) {
@@ -179,22 +179,25 @@ class GoalController extends \BaseController {
 				->withErrors($validator);
 		}
 
-        #Instantiate the goal model
-        $goal = new Goal();
-        $goal->name = Input::get('name');
-        $goal->description = Input::get('description');
-        $goal->users_id = Input::get('users_id');
+		if($validator->passes()) {
 
-        try {
-            $goal->save();
+	        #Instantiate the goal model
+	        $goal = new Goal();
+	        $goal->name = Input::get('name');
+	        $goal->description = Input::get('description');
+	        $goal->users_id = Input::get('users_id');
 
-            return Redirect::to('/goal/add')->with('flash_message', 'Your Goal was successfully added!');
-        }
-        catch (Exception $e) {
-            return Redirect::to('/goal/add')
-                ->with('flash_message', 'There was a problem adding your goal; please try again.')
-                ->withInput();
-        }
+	        try {
+	            $goal->save();
+
+	            return Redirect::to('/goal/add')->with('flash_message', 'Your Goal was successfully added!');
+	        }
+	        catch (Exception $e) {
+	            return Redirect::to('/goal/add')
+	                ->with('flash_message', 'There was a problem adding your goal; please try again.')
+	                ->withInput();
+	        }
+    	}
 	}
 
 
