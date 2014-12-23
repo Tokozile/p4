@@ -187,6 +187,8 @@ class GoalController extends \BaseController {
 	        $goal->description = Input::get('description');
 	        $goal->users_id = Input::get('users_id');
 
+
+
 	        try {
 	            $goal->save();
 
@@ -197,6 +199,7 @@ class GoalController extends \BaseController {
 	                ->with('flash_message', 'There was a problem adding your goal; please try again.')
 	                ->withInput();
 	        }
+
     	}
 	}
 

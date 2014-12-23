@@ -54,11 +54,15 @@
 							@if(Auth::check())
 								
 
-								<li><a href='/goal'>Show all your Goals and Notes</a></li>
+								<li><a href='/goal'>Show all your Goals</a></li>
+								<li><a href='/note'>Show all your Notes</a></li>
 								<li><a href='/goal/search'>Search for Goal</a></li>
+								<li><a href='/note/search'>Search for Note</a></li>
 								<li><a href='/goal/incomplete'>Show Only Incomplete Goals</a></li>
 								<li><a href='/goal/complete'>Show Only Complete Goals</a></li>
 								<li><a href='/goal/add'>Add a new Goal</a></li>
+								<li><a href='/note/add'>Create a Note</a></li>
+
 							@endif
 						</ul>
 				</nav>

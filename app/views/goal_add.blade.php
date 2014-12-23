@@ -12,7 +12,7 @@
        <h4>Enter a goal name and description to create a new goal. Good Luck!</h4>
        <br>
 
-	{{ Form::open(array('url' => '/goal/add')) }}
+	  {{ Form::open(array('url' => '/goal/add')) }}
 
 	  {{ Form::label('Goal Name') }}
     {{ Form::text('name') }}
@@ -22,6 +22,9 @@
 
     {{ Form::hidden('users_id', 'User') }}
     {{ Form::hidden('users_id', Auth::id())}}
+
+    {{ Form::label('note', 'Note (this is optional): ') }}
+    {{ Form::textarea('note', 'add note here') }}
 
     {{ Form::submit('Submit') }}
 

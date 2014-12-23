@@ -25,12 +25,16 @@ Route::get('/logout', 'UserController@getLogout' );
 * User
 * (Explicit Routing)
 */
-
-Route::get('/note/add{id}', 'NoteController@getAdd');
+Route::get('/note', 'NoteController@getIndex');
+Route::get('/note/search', 'NoteController@getSearch');
+Route::post('/note/search', 'NoteController@postSearch');
+Route::get('/note/add', 'NoteController@getAdd');
 Route::post('/note/add', 'NoteController@postAdd');
 
-Route::get('/note/edit', 'NoteController@getEdit');
+Route::get('/note/edit/{id}', 'NoteController@getEdit');
 Route::post('/note/edit', 'NoteController@postEdit');
+
+Route::post('/note/delete', 'NoteController@postDelete');
 /**
 * Debug
 * (Implicit Routing)
@@ -55,52 +59,6 @@ Route::get('/general', function()
     return View::make('general');
 
 });
-
-Route::get('/goal/showall', function()
-{
-    
-    $goals = DB::table('goals')
-           ->get();
-
-
-                        $goalOutput = '';
-                    #return the name and description of each goal for this user
-                    foreach ($goals as $goal) 
-                    {
-
-                            $goalOutput .= View::make('goal_edit')->with('goal', $goal)->render();
-                    }
-
-                    return $goalOutput; 
-
-});
-
-Route::get('/goal/showmine', function()
-{
-    
-#return Redirect::action('GoalController@getIndex')->with('flash_message','Your changes have been saved.');
-
-    $goals = DB::table('goals')
-           ->get();
-
-
-                        $goalOutput = '';
-                    #return the name and description of each goal for this user
-                    foreach ($goals as $goal) 
-                    {
-                            #$goalOutput .= View::make('goal_edit')->with('goal', $goal)->render();
-
-                            echo $goal->goal_completed;
-
-                    }
-
-                    #return $goalOutput; 
-
-                    #return Redirect::action('GoalController@getIncomplete', 'GoalController@postComplete')->with('flash_message','Your goals...');
-
-});
-
-#return Redirect::action('GoalController@getIndex')->with('flash_message','Your changes have been saved.');
 
 /**
 * Goal

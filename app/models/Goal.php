@@ -19,11 +19,11 @@ class Goal extends Eloquent {
     
     /* Notes Belong to Goal*/
     
-    public function notes() {
+    /*public function notes() {
 
         return $this->belongsTo('Note');
 
-    }
+    }*/
 
     /**
     * Search among goals and notes

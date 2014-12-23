@@ -16,12 +16,11 @@ class NoteController extends \BaseController {
 	}
 
 
-	public function getAdd($id) {
+	public function getAdd() {
 
-		            		return View::make('notes_add');
+		return View::make('notes_add');
 
 	}
-
 
 	/**
 	* Process the "Edit a book form"
@@ -29,163 +28,134 @@ class NoteController extends \BaseController {
 	*/
 	public function postAdd() {
 
-		try {
-	        $goal = Goal::findOrFail(Input::get('id'));
-	    }
-	    catch(exception $e) {
-	        return Redirect::to('/profile')->with('flash_message', 'Goal not found');
-	    }
-
-	    # http://laravel.com/docs/4.2/eloquent#mass-assignment
-	    $goal->fill(Input::all());
-	    $goal->save();
-
-
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Your changes have been saved.');
-
-	}
-
-
-
-
-
-
-
-	public function getIndex() {
-
-
-			 #find current user id
-		    $currentUser = Auth::id();
-
-		    #get all goals whose users_id matched the current user's id
-		   $goals = DB::table('goals')->where('users_id', '=', $currentUser)->get();
-		   //return $test2;
-		   $goalOutput = '';
-		   #return the name and description of each goal for this user
-		   foreach ($goals as $goal) 
-		            {
-
-		            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
-
-		          
-		               #echo $goal->name.': ';
-		               #echo $goal->description.'<br>';
-		            }
-
-		            return $goalOutput;
-	}
-
-	public function getAdd() {
-
-        return View::make('goal_add');
-    }
-
-
-    /**
-    * Process the "Add a book form"
-    * @return Redirect
-    */
-
-
-	public function postAdd() {
-
+			$data = Input::all();
 		# Step 1) Define the rules
 		$rules = array(
-			'name' => 'required',
-			'description' => 'required',
-			'users_id' => 'required'
+			'note' => 'required',
+			'goals_users_id' => 'required|numeric'
 		);
 
 		# Step 2)
-		$validator = Validator::make(Input::all(), $rules);
+		$validator = Validator::make($data, $rules);
 
 		# Step 3
 		if($validator->fails()) {
 
-			return Redirect::to('/goal_add')
-				->with('flash_message', 'There seems to have been a problem adding your goal. Please fix the errors listed below.')
+			return Redirect::to('/note/add')
+				->with('flash_message', 'There seems to have been a problem adding your note. Please note that all fields are required.')
 				->withInput()
 				->withErrors($validator);
 		}
 
-        #Instantiate the goal model
-        $goal = new Goal();
-        $goal->name = Input::get('name');
-        $goal->description = Input::get('description');
-        $goal->users_id = Input::get('users_id');
-        try {
-            $goal->save();
-            return Redirect::to('/goal/add')->with('flash_message', 'Your Goal was successfully added!');
-        }
-        catch (Exception $e) {
-            return Redirect::to('/goal/add')
-                ->with('flash_message', 'There was a problem adding your goal; please try again.')
-                ->withInput();
+		if($validator->passes()) {
+
+	        #Instantiate the goal model
+
+			$note = new Note();
+	        $note->note = Input::get('note');
+	        $note->goals_users_id = Input::get('goals_users_id');
+
+			$note->save();
+
+			try {
+		            $note->save();
+
+		            return Redirect::to('/note/add')->with('flash_message', 'Your Note was successfully added!');
+		        }
+		        catch (Exception $e) {
+		            return Redirect::to('/note/add')
+		                ->with('flash_message', 'There was a problem adding your note; please try again.')
+		                ->withInput();
+		        }
         }
 	}
 
-
-	public function getSearch() {
-
-		return View::make('goal_search');
-
-	}
-
-
-
-
-	public function postSearch() {
-
-		
-
-			$query  = Input::get('query');
-
+	public function getIndex() {
 
 			 #find current user id
 		    $currentUser = Auth::id();
 
 		    #get all goals whose users_id matched the current user's id
-		   $goals = DB::table('goals')->where('users_id', '=', $currentUser)
-		   ->where('name', '=', $query)
-		   ->get();
+		   $notes = DB::table('notes')->where('goals_users_id', '=', $currentUser)->get();
 		   //return $test2;
-		   $goalOutput = '';
-		   #return the name and description of each goal for this user
-		   foreach ($goals as $goal) 
+		   $noteOutput = '';
+		   #return the name and description of each goal for this user  #THIS WORKS
+		   foreach ($notes as $note) 
 		            {
-		            	if ($goal) {
-		            	
-		            		$goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
-		            	}
 
-		            	else{
-
-		            		return View::make('general')->with('flash_message', 'You do not have any goals created yet. Please Click on the link below to start creating goals!');
-
-		            	}
+		            	$noteOutput .= View::make('notes_results')->with('note', $note)->render();
 
 		            }
 
-		            return $goalOutput; 
+		            if ($noteOutput ) {
+		            	
+		            	return $noteOutput;
+		            }
+
+		            else {
+
+		          		return Redirect::intended('/')->with('flash_message','Sorry, we did not find any notes for you');
+		            }
+	}
+
+	public function getSearch() {
+
+		return View::make('note_search');
+
+	}
+
+	public function postSearch() {
+
+			$query  = Input::get('query');
+
+			 #find current user id
+		    $currentUser = Auth::id();
+
+		    #get all goals whose users_id matched the current user's id
+		   $notes = DB::table('notes')->where('goals_users_id', '=', $currentUser)
+		   ->where('note', 'LIKE', "%$query%")
+		   ->get();
+		   //return $test2;
+		   $noteOutput = '';
+		   #return the name and description of each goal for this user
+		   foreach ($notes as $note) 
+		            {
+		 		            	
+		            		$noteOutput .= View::make('notes_results')->with('note', $note)->render();
+
+		            }
+
+		            if ($noteOutput)
+		            {
+		            	return $noteOutput; 
+
+		            }
+
+		            else {
+		            
+	   				return Redirect::intended('/note/search')->with('flash_message','Sorry, no notes were found with that input. Please try again');
+
+		            }
+		            return $noteOutput; 
 	}
 
 
 	public function getEdit($id) {
 
 
-		   /* #get all goals whose users_id matched the current user's id*/
-		   $goals = DB::table('goals')->where('id', '=', $id)
+ 		$notes = DB::table('notes')->where('id', '=', $id)
 		   ->get();
 			            
-		   				$goalOutput = '';
+		   				$noteOutput = '';
 		   			#return the name and description of each goal for this user
-		   			foreach ($goals as $goal) 
+		   			foreach ($notes as $note) 
 		            {
 
-		            		$goalOutput .= View::make('goal_edit')->with('goal', $goal)->render();
+		            		$noteOutput .= View::make('note_edit')->with('note', $note)->render();
 		            }
 
-		            return $goalOutput; 
+		            return $noteOutput; 
+		
 	}
 
 
@@ -195,113 +165,61 @@ class NoteController extends \BaseController {
 	*/
 	public function postEdit() {
 
-		try {
-	        $goal = Goal::findOrFail(Input::get('id'));
-	    }
-	    catch(exception $e) {
-	        return Redirect::to('/profile')->with('flash_message', 'Goal not found');
-	    }
+				// Fetch all request data.
+    	$data = Input::all();
 
-	    # http://laravel.com/docs/4.2/eloquent#mass-assignment
-	    $goal->fill(Input::all());
-	    $goal->save();
+    	// Build the validation constraint set.
+    	$rules = array(
+  			'note' => 'required',
+    	);
 
+    	// Create a new validator instance.
+    	$validator = Validator::make($data, $rules);
 
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Your changes have been saved.');
+    	if($validator->fails()) {
 
-	}
-
-		public function getComplete() {
-
-		   #get all goals whose users_id matched the current user's id*/
-
-									 #find current user id
-					    $currentUser = Auth::id();
-
-					    #get all goals whose users_id matched the current user's id
-					   $goals = DB::table('goals')->where('users_id', '=', $currentUser)
-					 	->where('goal_completed', '=', '1')
-					 	->get();
-					   $goalOutput = '';
-					   #return the name and description of each goal for this user
-					   foreach ($goals as $goal) 
-					            {
-					            	if ($goal) {
-					            	
-					            		$goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
-					            	
-					            	}
-
-					            	elseif (! $goal->isEmpty()) {
-					            			return View::make('general')->with('flash_message','You Have no complted goals')->render();
-					            		
-					            	}
-					            }
-
-					            return $goalOutput;
-
-	   		#return Redirect::action('GoalController@getIndex')->with('flash_message','The following Goals have NOT been Completed.');
-	   	}
-
-
-		public function getIncomplete() {
-
-					 #find current user id
-		    $currentUser = Auth::id();
-
-		    #get all goals whose users_id matched the current user's id
-		   $goals = DB::table('goals')->where('users_id', '=', $currentUser)
-		 	->where('goal_completed', '=', '0')
-		 	->get();
-		   $goalOutput = '';
-		   #return the name and description of each goal for this user
-		   foreach ($goals as $goal) 
-		            {
-
-		            $goalOutput .= View::make('goal_search_results')->with('goal', $goal)->render();
-
-		            }
-
-		            return $goalOutput;
-
-	   		#return Redirect::action('GoalController@getIndex')->with('flash_message','The following Goals have been Completed.');
-
+			return Redirect::action('NoteController@getIndex')
+				->with('flash_message', 'There seems to have been a problem editing your note. Please note that all fields are required.')
+				->withInput()
+				->withErrors($validator);
 		}
 
-		public function postDelete() {
+    	if ($validator->passes()) {
 
-		try {
-	        $goal = Goal::findOrFail(Input::get('id'));
-	    }
-	    catch(exception $e) {
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','This Goal could not be deleted');
-	    }
+    	}
 
-	    Goal::destroy(Input::get('id'));
+			try {
+		        $note = Note::findOrFail(Input::get('id'));
+		    }
+		    catch(exception $e) {
+		        return Redirect::to('/profile')->with('flash_message', 'Note not found');
+		    }
 
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Your Goal has been deleted.');
+		    # http://laravel.com/docs/4.2/eloquent#mass-assignment
+		    #add goal values and save
+		    $note->fill(Input::all());
+		    $note->save();
 
+		    
+		   	return Redirect::action('NoteController@getIndex')->with('flash_message','Your changes have been saved.');
 	}
 
-
-	public function postComplete() {
+	public function postDelete() {
 
 		try {
-	        $goal = Goal::findOrFail(Input::get('id'));
+	        $note = Note::findOrFail(Input::get('id'));
 	    }
 	    catch(exception $e) {
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','This Goal could not be completed');
+	   	return Redirect::action('NoteController@getIndex')->with('flash_message','This Note could not be deleted');
 	    }
 
-	     $goal->goal_completed = '1';
+	    Note::destroy(Input::get('id'));
 
-					        # Save the changes
-					        $goal->save();
-
-
-	   	return Redirect::action('GoalController@getIndex')->with('flash_message','Your Goal has been complete.');
+	   	return Redirect::action('NoteController@getIndex')->with('flash_message','Your Note has been deleted.');
 
 	}
+	
+
 	
 }	            
 
