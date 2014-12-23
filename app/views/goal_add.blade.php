@@ -23,9 +23,6 @@
     {{ Form::hidden('users_id', 'User') }}
     {{ Form::hidden('users_id', Auth::id())}}
 
-    {{ Form::label('note', 'Note (this is optional): ') }}
-    {{ Form::textarea('note', 'add note here') }}
-
     {{ Form::submit('Submit') }}
 
 	{{ Form::close() }}
