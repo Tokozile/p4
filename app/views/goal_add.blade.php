@@ -20,8 +20,8 @@
     {{ Form::label('Description') }}
     {{ Form::text('description') }}
 
-    {{ Form::label('users_id', 'User') }}
-    {{ Form::text('users_id', Auth::id())}}
+    {{ Form::hidden('users_id', 'User') }}
+    {{ Form::hidden('users_id', Auth::id())}}
 
     {{ Form::submit('Submit') }}
 
