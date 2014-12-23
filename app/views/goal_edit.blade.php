@@ -34,10 +34,7 @@
 			{{ Form::text('created_at',$goal->created_at) }}
 
 		@endif
-			Adding a Note is Optional:
-			{{ Form::label('note', 'Note: ') }}
-    		{{ Form::text('note', 'add note here') }}
-
+			
 			{{ Form::hidden('id', 'ID') }}
 			{{ Form::hidden('id', $goal->id) }}	
 
