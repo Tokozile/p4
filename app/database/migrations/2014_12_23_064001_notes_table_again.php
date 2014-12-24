@@ -28,7 +28,7 @@ class NotesTableAgain extends Migration {
 			
 			# Define foreign keys...
 			$table->foreign('goals_users_id')->references('users_id')->on('goals')
-			  ->onDelete('cascade');
+			  #->onDelete('cascade');
 
 		});
 	}
