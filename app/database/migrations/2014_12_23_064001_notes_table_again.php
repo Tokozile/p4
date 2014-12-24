@@ -27,7 +27,8 @@ class NotesTableAgain extends Migration {
 			$table->integer('goals_users_id')->unsigned(); # Important! FK has to be unsigned because the PK it will reference is auto-incrementing
 			
 			# Define foreign keys...
-			$table->foreign('goals_users_id')->references('users_id')->on('goals');
+			$table->foreign('goals_users_id')->references('users_id')->on('goals')
+			  ->onDelete('cascade');
 
 		});
 	}
