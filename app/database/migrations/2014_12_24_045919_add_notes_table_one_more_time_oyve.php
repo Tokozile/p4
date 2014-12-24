@@ -3,9 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class NotesTableAgain extends Migration {
-
-	/**
+class AddNotesTableOneMoreTimeOyve extends Migration {
+/**
 	 * Run the migrations.
 	 *
 	 * @return void
@@ -28,7 +27,7 @@ class NotesTableAgain extends Migration {
 			
 			# Define foreign keys...
 			$table->foreign('goals_users_id')->references('users_id')->on('goals');
-			  #->onDelete('cascade');
+			 ->onDelete('cascade');
 
 		});
 	}
