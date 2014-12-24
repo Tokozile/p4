@@ -3,9 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class NotesTableAgain extends Migration {
-
-	/**
+class AddNotesTableOneMoreTimeOyve extends Migration {
+/**
 	 * Run the migrations.
 	 *
 	 * @return void
@@ -13,7 +12,8 @@ class NotesTableAgain extends Migration {
 	public function up()
 	{
 	
-	Schema::create('notes', function($table) {
+	Schema::create('notes', function($table) 
+		{
 			
 			# AI, PK
 			$table->increments('id');
@@ -24,10 +24,10 @@ class NotesTableAgain extends Migration {
 			# General data....
 			$table->longText('note');
 
-			$table->integer('goals_users_id')->unsigned(); # Important! FK has to be unsigned because the PK it will reference is auto-incrementing
+			$table->integer('users_id')->unsigned(); # Important! FK has to be unsigned because the PK it will reference is auto-incrementing
 			
 			# Define foreign keys...
-			$table->foreign('goals_users_id')->references('users_id')->on('goals')->onDelete('cascade');
+			$table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
 
 		});
 	}
