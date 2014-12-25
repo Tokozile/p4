@@ -17,10 +17,8 @@ class AddNotesTableOneMoreTimeOyve extends Migration {
 			
 			# AI, PK
 			$table->increments('id');
-			
 			# created_at, updated_at columns
-			$table->timestamps();
-			
+			$table->timestamps();			
 			# General data....
 			$table->longText('note');
 
