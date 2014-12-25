@@ -17,8 +17,8 @@
 	  {{ Form::label('note', 'Note: ') }}
     {{ Form::textarea('note') }}
 
-    {{ Form::hidden('users_id', 'User') }}
-    {{ Form::hidden('users_id', Auth::id())}}
+    {{ Form::hidden('goals_users_id', 'User') }}
+    {{ Form::hidden('goals_users_id', Auth::id())}}
 
     {{ Form::submit('Submit') }}
 
