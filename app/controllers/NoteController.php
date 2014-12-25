@@ -32,7 +32,7 @@ class NoteController extends \BaseController {
 		# Step 1) Define the rules
 		$rules = array(
 			'note' => 'required',
-			'goals_users_id' => 'required|numeric'
+			'users_id' => 'required|numeric'
 		);
 
 		# Step 2)
@@ -53,7 +53,7 @@ class NoteController extends \BaseController {
 
 			$note = new Note();
 	        $note->note = Input::get('note');
-	        $note->goals_users_id = Input::get('goals_users_id');
+	        $note->users_id = Input::get('users_id');
 
 			$note->save();
 
@@ -76,7 +76,7 @@ class NoteController extends \BaseController {
 		    $currentUser = Auth::id();
 
 		    #get all goals whose users_id matched the current user's id
-		   $notes = DB::table('notes')->where('goals_users_id', '=', $currentUser)->get();
+		   $notes = DB::table('notes')->where('users_id', '=', $currentUser)->get();
 		   //return $test2;
 		   $noteOutput = '';
 		   #return the name and description of each goal for this user  #THIS WORKS
@@ -112,7 +112,7 @@ class NoteController extends \BaseController {
 		    $currentUser = Auth::id();
 
 		    #get all goals whose users_id matched the current user's id
-		   $notes = DB::table('notes')->where('goals_users_id', '=', $currentUser)
+		   $notes = DB::table('notes')->where('users_id', '=', $currentUser)
 		   ->where('note', 'LIKE', "%$query%")
 		   ->get();
 		   //return $test2;
